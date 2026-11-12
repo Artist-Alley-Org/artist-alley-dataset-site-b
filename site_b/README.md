@@ -1,6 +1,6 @@
 # Public peer candidate (provisional)
 
-**Status: PROVISIONAL, uncommitted candidate for issue #1514 (v0.11.1).**
+**Status: PROVISIONAL local candidate for issue #1514 (v0.11.1).**
 This is not a release, not a CI cutover and not permission to publish.
 No CI job, profile or seed reads this directory. It does not replace any
 existing peer corpus.
