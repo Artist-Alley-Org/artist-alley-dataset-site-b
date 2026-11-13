@@ -1,22 +1,24 @@
 # Artist Alley dataset: site_b (provisional candidate)
 
-**Status: PROVISIONAL, local only. Not a release, not rights-cleared, not a CI cutover.**
+**Status: PROVISIONAL public metadata repository. No binary archive has been released, no
+CI cutover has happened, and nothing here is rights clearance.**
 
 This repository holds the provisional public `site_b` peer candidate for issue #1514
-(v0.11.1), kept separate from the artist-alley application repository. The planned home
-is the Artist-Alley-Org GitHub organization.
+(v0.11.1), kept separate from the artist-alley application repository. Its home is the
+Artist-Alley-Org GitHub organization.
 
 ## What Git holds, and where the bytes go
 
 - **Git holds metadata only:** this README, `.gitignore`, and `site_b/MANIFEST.json`,
   `site_b/posts.json`, `site_b/README.md` and `site_b/SHA256SUMS`. No image and no Git LFS
   pointer is tracked, so a clone contains no dataset binaries.
-- **The payload is local only.** Under `site_b/images/`, this local working copy holds the 503
+- **The payload is not in this repository.** Under `site_b/images/`, the maintainers' local
+  working copy holds the 503
   candidate PNGs plus 7 pack-local `License.txt` notices and 1 provenance file
   (`images/kenney/PROVENANCE.json`). They are present for building release archives but are
   not tracked; `.gitignore` ignores them.
-- **Consumers get the bytes from versioned GitHub Release assets** (owner decision,
-  2026-11-11). A consumer verifies the release archive's hash before extracting and seeding,
+- **Consumers will get the bytes from versioned GitHub Release assets** (owner decision,
+  2026-11-11; none released yet). A consumer verifies the release archive's hash before extracting and seeding,
   then checks `site_b/SHA256SUMS`.
 - **A metadata-only clone cannot pass `sha256sum -c SHA256SUMS`:** the payload files it lists
   are only present after the matching release archive has been downloaded and extracted.
@@ -32,13 +34,13 @@ is the Artist-Alley-Org GitHub organization.
   the application repository, run with `--fixture` pointing at this repository's `site_b/`.
   Its `--check` mode rebuilds and requires byte identity.
 - **Verify:** with the entire payload present (the 503 PNGs, the 7 pack `License.txt`
-  notices and `images/kenney/PROVENANCE.json`: this local copy, or a clone plus the matching
+  notices and `images/kenney/PROVENANCE.json`: the maintainers' local copy, or a clone plus the matching
   extracted release archive), run `sha256sum -c SHA256SUMS` from `site_b/`.
 
 ## Not done yet
 
 - **Rights and release:** a private, conditional per-file review record covers the selected
   PNG bytes. It is not a guarantee and not release approval, and nothing has public-release
-  approval.
+  approval. Rights review remains provisional.
 - **Release archives:** none uploaded or published.
-- **Remote:** this repository has no remote yet.
+- **CI cutover:** no CI job or seed profile uses this candidate yet.
