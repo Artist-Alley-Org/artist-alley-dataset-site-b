@@ -2,4 +2,4 @@
 # present locally for building release archives, but are never tracked in Git
 # (ordinary or LFS). Consumers get the bytes from versioned, checksum-verified
 # GitHub Release assets.
-/site_b/images/
+/images/
