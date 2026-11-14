@@ -1,11 +1,11 @@
-# Artist Alley dataset: site_b (provisional candidate)
+# Artist Alley dataset: site_b (provisional peer dataset)
 
-**Status: PROVISIONAL public metadata repository. No binary archive has been released, no
-CI cutover has happened, and nothing here is rights clearance.**
+**Status: PROVISIONAL public metadata repository. Edition `v2026.11.01` is published as a
+GitHub prerelease, and nothing here is rights clearance.**
 
-This repository holds the provisional public `site_b` peer candidate for issue #1514
-(v0.11.1), kept separate from the artist-alley application repository. Its home is the
-Artist-Alley-Org GitHub organization.
+This repository holds the metadata for the provisional public `site_b` peer dataset, prepared
+under issue #1514 (Artist Alley v0.11.1) and kept separate from the artist-alley application
+repository. Its home is the Artist-Alley-Org GitHub organization.
 
 ## What Git holds, and where the bytes go
 
@@ -13,21 +13,48 @@ Artist-Alley-Org GitHub organization.
   `DATASET.md` and `SHA256SUMS`, all at the repository root (the same layout as `site_a`). No
   image and no Git LFS pointer is tracked, so a clone contains no dataset binaries.
 - **The payload is not in this repository.** Under `images/`, the maintainers' local
-  working copy holds the 503
-  candidate PNGs plus 7 pack-local `License.txt` notices and 1 provenance file
-  (`images/kenney/PROVENANCE.json`). They are present for building release archives but are
+  working copy holds the 503 PNGs plus 7 pack-local `License.txt` notices and 1 provenance
+  file (`images/kenney/PROVENANCE.json`). They are used to build release archives but are
   not tracked; `.gitignore` ignores them.
-- **Consumers will get the bytes from versioned GitHub Release assets** (owner decision,
-  2026-11-11; none released yet). A consumer verifies the release archive's hash before extracting and seeding,
-  then checks `SHA256SUMS`.
+- **Consumers get the bytes from versioned GitHub Release assets.** A consumer verifies the
+  release archive's hash before extracting and seeding, then checks `SHA256SUMS`.
 - **A metadata-only clone cannot pass `sha256sum -c SHA256SUMS`:** the payload files it lists
   are only present after the matching release archive has been downloaded and extracted.
-- **Private local archive only:** a private local release archive of this payload has been
-  built and verified. Nothing has been uploaded or publicly released.
+
+## Published edition
+
+[`v2026.11.01`](https://github.com/Artist-Alley-Org/artist-alley-dataset-site-b/releases/tag/v2026.11.01)
+is a GitHub prerelease. The project owner reviewed the recorded source evidence and chose to
+publish it as provisional; that is not rights clearance (see "Not done yet").
+
+- **Pins:** repository `Artist-Alley-Org/artist-alley-dataset-site-b`, tag `v2026.11.01`, which
+  resolves to metadata commit `9fa8fb76cf208d2b3e6a40d13ed6a44a715ef36e`, and the
+  `release.json` SHA-256
+  `a4b1fa20ddefab64c161fdd27bf393abf85ea78ec240d9cfb9c3e4c9d8451093`. A tag alone is not an
+  integrity pin: always check the `release.json` SHA-256.
+- **Assets:** `release.json` pins `SHA256SUMS`, the metadata files and the single payload
+  part, `site_b-payload.tar.gz.part0000` (3,160,894 bytes, the whole gzip stream).
+- **Asset names:** this edition uses the original names, `release.json` and
+  `site_b-payload.tar.gz.partNNNN`, and they will not change. Later editions will carry the site
+  and tag in every asset name.
+- **Download and verify:** in a checkout of the tag (not a later `main` commit), check
+  `release.json` against the SHA-256 above and the part against its `sha256` and `bytes` in
+  `release.json`. Then run `cat site_b-payload.tar.gz.part* | tar -xzf -` at the repository
+  root, and `sha256sum -c SHA256SUMS` (514 entries). The Artist Alley tool
+  `seed/scripts/release_dataset.py verify` performs these checks, plus member, path and link
+  checks.
+
+## How Artist Alley CI uses it
+
+As of 2026-11-14, the Artist Alley application pins this edition in
+`seed/contracts/ci-datasets.v1.json` by repository, tag, metadata commit and `release.json`
+SHA-256. Its scheduled UI nightly workflow, on GitHub-hosted runners, downloads and verifies
+the full edition anonymously and seeds the peer site from it with a per-extension limit.
+Pull-request UI CI does not use `site_b`.
 
 ## Contents
 
-- **The repository root is the candidate site root.** It has 503 image assets
+- **The repository root is the site root.** It has 503 image assets
   (`MANIFEST.json`) and 200 posts (`posts.json`), plus the generated `DATASET.md` and
   `SHA256SUMS`. See `DATASET.md` for counts, sources, the overlap anchors and control, and its
   limits.
@@ -41,8 +68,10 @@ Artist-Alley-Org GitHub organization.
 
 ## Not done yet
 
-- **Rights and release:** a private, conditional per-file review record covers the selected
-  PNG bytes. It is not a guarantee and not release approval, and nothing has public-release
-  approval. Rights review remains provisional.
-- **Release archives:** none uploaded or published.
-- **CI cutover:** no CI job or seed profile uses this candidate yet.
+- **Rights review:** a private, conditional per-file review record covers the selected PNG
+  bytes, and its rows are still pending review. Publishing `v2026.11.01` did not complete it.
+  It is not a guarantee, and rights review remains provisional.
+- **Source comparison:** the bytes match the maintainers' local copy of the Kenney bundle.
+  Whether they equal what kenney.nl distributes today has not been checked.
+- Pack-level CC0 notices are evidence, not legal clearance. CC0 grants no trademark or
+  publicity rights.
